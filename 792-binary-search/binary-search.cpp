@@ -5,7 +5,7 @@ public:
         int left = 0, right = n - 1, mid;
         
         while (left <= right) {  // Fixed condition
-            mid = left + (right - left) / 2;  // Avoid overflow
+            mid = (left + right) / 2;  // Avoid overflow
             
             if (nums[mid] == target) return mid;
             else if (target > nums[mid]) {
