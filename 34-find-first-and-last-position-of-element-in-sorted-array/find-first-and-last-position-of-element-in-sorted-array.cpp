@@ -1,21 +1,38 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int n=nums.size(), firstocc=-1, lastocc=-1;
-        // vector<int> result;
-        for(int i = 0; i<n; i++){
-            if(nums[i]== target){
-                firstocc=i;
-                // result.push_back(firstocc);
-                break;
+        int firstocc = findFirst(nums, target);
+        int lastocc = findLast(nums, target);
+        if (firstocc == -1 || nums[firstocc] != target) return {-1, -1};
+
+        return {firstocc, lastocc};
+    }
+
+private:
+    int findFirst(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1, first = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] >= target) {
+                first = mid; 
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
-        }if(firstocc== -1) return {-1,-1};
-        for(int i= firstocc; i<n; i++){
-            if(nums[i]== target){
-                lastocc = i;
-                // result.push_back(lastocc);
+        }return (first != -1 && nums[first] == target) ? first : -1;
+    }
+
+    int findLast(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1, last = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > target) {
+                right = mid - 1;  
+            } else {
+                last = mid;
+                left = mid + 1;
             }
-         }//if(!find(nums.begin(),nums.end(),target)) return [-1,-1];
-        return {firstocc,lastocc};
+        }
+        return last;
     }
 };
