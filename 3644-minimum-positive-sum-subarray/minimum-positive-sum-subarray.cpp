@@ -1,24 +1,22 @@
 class Solution {
 public:
-int minimumSumSubarray(vector<int>& nums, int l, int r) {
-    int n = nums.size();
-    int minSum = INT_MAX;
-    
-    for (int i = 0; i < n; i++) {
-        int currentSum = 0;
-        
-        for (int j = i; j < n; j++) {
-            currentSum += nums[j];
-            int subarrayLength = j - i + 1;
-            
-            // Check if the subarray length is between l and r and if sum is positive
-            if (subarrayLength >= l && subarrayLength <= r && currentSum > 0) {
-                minSum = min(minSum, currentSum);
+    int minimumSumSubarray(vector<int>& nums, int l, int r) {
+        int n = nums.size();
+        int minSum = INT_MAX;
+        bool found = false;
+
+        for (int start = 0; start < n; ++start) {
+            int sum = 0;
+            for (int end = start; end < n; ++end) {
+                sum += nums[end];
+                int length = end - start + 1;
+                if (length >= l && length <= r && sum > 0) {
+                    minSum = min(minSum, sum);
+                    found = true;
+                }
             }
         }
+
+        return found ? minSum : -1;
     }
-    
-    // If no subarray with positive sum found, return -1
-    return minSum == INT_MAX ? -1 : minSum;
-}
 };
