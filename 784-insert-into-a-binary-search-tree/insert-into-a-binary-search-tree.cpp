@@ -13,20 +13,29 @@
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int val) {
-        // Base Case: If root is NULL, create a new node and return it
+        TreeNode* newNode = new TreeNode(val);
+
         if (root == NULL) {
-            return new TreeNode(val);
+            return newNode;
         }
 
-        // If value is greater than root, insert in right subtree
-        if (val > root->val) {
-            root->right = insertIntoBST(root->right, val);
-        } 
-        // Otherwise, insert in left subtree
-        else {
-            root->left = insertIntoBST(root->left, val);
+        TreeNode* curr = root;
+        while (true) {
+            if (val > curr->val) {
+                if (curr->right == NULL) {
+                    curr->right = newNode;
+                    break;
+                }
+                curr = curr->right;
+            } else {
+                if (curr->left == NULL) {
+                    curr->left = newNode;
+                    break;
+                }
+                curr = curr->left;
+            }
         }
-
+        
         return root;
     }
 };
