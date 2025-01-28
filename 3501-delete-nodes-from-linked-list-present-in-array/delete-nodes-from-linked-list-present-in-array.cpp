@@ -11,27 +11,30 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        if(nums.size() == 0 || !head) return head;
-        unordered_set<int> st(nums.begin(),nums.end());
-        ListNode* newHead = NULL;
-        ListNode* t = head;
-        ListNode* t2 = NULL;
-        while(t){
-            if(!st.contains(t->val)){
-                ListNode* dummy = new ListNode(t->val);
-                if(newHead == NULL){
-                    newHead = dummy;
-                    t2 = dummy;
-                }else{
-                    t2->next = dummy;
-                    t2 = t2->next;
-
-                }
-                
-            }
-            t = t->next;
-
+        int max = -1;
+        for (int num : nums) {
+            max = num > max ? num : max;
         }
-        return newHead;
+
+        vector<bool> freq(max + 1, false);
+
+        for (int num : nums) {
+            freq[num] = true;
+        }
+
+        ListNode* temp = new ListNode();
+        ListNode* current = temp;
+
+        while (head != nullptr) {
+            if (head->val >= freq.size() || !freq[head->val]) {
+                current->next = head;
+                current = current->next;
+            }
+            head = head->next;
+        }
+
+        current->next = nullptr;
+
+        return temp->next;
     }
 };
