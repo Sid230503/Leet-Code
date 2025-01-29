@@ -1,8 +1,8 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        stack<int> star;  
-        stack<int> paren; 
+        stack<int> star;
+        stack<int> paren;
         for (int i = 0; i < s.size(); i++) {
             if (s[i] == '(')
                 paren.push(i);
@@ -13,17 +13,17 @@ public:
                     paren.pop();
                 else if (!star.empty())
                     star.pop();
-                else 
+                else {
                     return false;
+                }
             }
         }
-        // Ensure '*' can balance any remaining '('
-        while (!paren.empty() && !star.empty()) {
-            if (paren.top() > star.top()) // '(' appears after '*', invalid
+        while (!star.empty() && !paren.empty()) {
+            if (paren.top() > star.top())
                 return false;
-            paren.pop();
             star.pop();
+            paren.pop();
         }
-        return paren.empty(); // If any '(' remains unbalanced, return false
+        return paren.empty();
     }
 };
