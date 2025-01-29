@@ -6,7 +6,7 @@ public:
         sort(s.begin(),s.end());
         sort(g.begin(), g.end());
         while(i<n && j<m){
-            if(s[j] >= g[i]){
+            if(g[i] <= s[j]){
                 count++;
                 i++;
                 j++;
