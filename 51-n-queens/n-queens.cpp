@@ -1,14 +1,11 @@
 class Solution {
         bool isfind(int row, int col, vector<string>& board, int n) {
-        // Check the same row on the left
         for (int i = 0; i < col; i++)
             if (board[row][i] == 'Q') return false;
 
-        // Check upper diagonal
         for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
             if (board[i][j] == 'Q') return false;
 
-        // Check lower diagonal
         for (int i = row, j = col; i < n && j >= 0; i++, j--)
             if (board[i][j] == 'Q') return false;
 
