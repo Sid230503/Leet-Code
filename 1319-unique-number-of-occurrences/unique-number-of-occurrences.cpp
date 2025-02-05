@@ -9,10 +9,10 @@ public:
         for(auto it : mpp){
             vec.push_back(it.second);
         }
-        // sort(vec.begin(), vec.end());
+        sort(vec.begin(), vec.end());
         if(vec.size()==1) return true;
         for(int i = 1; i<vec.size(); i++){
-            if (find(vec.begin(), vec.begin() + i, vec[i]) != vec.begin() + i) return false;
+            if(vec[i] == vec[i-1]) return false;
         }return true;
     }
 };
